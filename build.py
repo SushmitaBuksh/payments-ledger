@@ -77,6 +77,7 @@ def page(title, body, desc, path, kind="website"):
 <meta property="og:type" content="{'article' if kind=='article' else 'website'}">
 <meta property="og:url" content="{esc(url)}">
 <meta name="twitter:card" content="summary">
+<meta name="google-site-verification" content="PbGUo1pr13oBoi1uN125Hb_bBmVwdiA0v8xaJExeYZY" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>{CSS}</style>
