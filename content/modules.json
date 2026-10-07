@@ -1,0 +1,566 @@
+[
+  {
+    "id": "m1",
+    "title": "Introduction to payments",
+    "week": "Week 1",
+    "goal": "Explain what a payment is, name the four types of payment by speed and settlement, and draw the payer-to-payee flow with the banks in between.",
+    "topics": "Electronic vs non-electronic · domestic vs cross-border · RTGS vs ACH · the payment journey · clearing, settlement, messaging · fraud validation points",
+    "res": [
+      {
+        "t": "Wikipedia: Payment system, RTGS, ACH, Clearing, Settlement",
+        "k": "text",
+        "n": "Read these five in order — accurate and free. Search each title on Wikipedia."
+      },
+      {
+        "t": "BIS / CPMI glossary",
+        "k": "text",
+        "n": "Search 'CPMI glossary'. The dictionary for the whole course — bookmark it."
+      },
+      {
+        "t": "RBI — Payment and Settlement Systems FAQ index",
+        "k": "text",
+        "u": "https://www.rbi.org.in/scripts/FAQView.aspx/FAQDisplay.aspx?dId=47963",
+        "n": "Links the RBI's own FAQs on NEFT, RTGS, cheque clearing and the PSS Act."
+      },
+      {
+        "t": "YouTube: 'how payment systems work clearing and settlement explained'",
+        "k": "video",
+        "n": "Also try 'four corner model payments'."
+      },
+      {
+        "t": "Podcast: Glenbrook 'Payments on Fire' — any Payments 101 episode",
+        "k": "audio",
+        "n": "Free. Good for commutes throughout the course."
+      }
+    ],
+    "ex": "Draw one diagram showing a cheque, an NEFT transfer, an RTGS transfer and a UPI payment side by side. For each, mark where clearing happens, where settlement happens, and whether it is gross or net.",
+    "cp": "Can you explain to a friend why a cheque takes two days and UPI takes two seconds, using the words clearing and settlement correctly?"
+  },
+  {
+    "id": "m2",
+    "title": "Indian payment systems: non-fast and fast",
+    "week": "Week 2",
+    "goal": "Compare RTGS, NEFT, IMPS and UPI on speed, settlement, limits, routing identifiers and operator; explain online vs bulk channels.",
+    "topics": "RTGS · NEFT · IMPS · UPI · online vs bulk (file-based) channels",
+    "res": [
+      {
+        "t": "RBI FAQs on NEFT and RTGS",
+        "k": "text",
+        "u": "https://www.rbi.org.in/scripts/FAQView.aspx/FAQDisplay.aspx?dId=47963",
+        "n": "The authoritative rules. Open NEFT (Sep 2024) and RTGS (Oct 2022) from the index."
+      },
+      {
+        "t": "IIBF — Digital Banking Updates (PDF)",
+        "k": "text",
+        "u": "https://www.iibf.org.in/documents/DigitalBankingUpdates.pdf",
+        "n": "IMPS, UPI, NFS, AEPS, BBPS and every NPCI product in one document."
+      },
+      {
+        "t": "GKToday — Major retail payment systems in India",
+        "k": "text",
+        "u": "https://www.gktoday.in/major-retail-payment-systems-in-india/",
+        "n": "Current: UPI Lite, 123PAY, credit on UPI, IMPS limits, MMID/IFSC routing."
+      },
+      {
+        "t": "WintWealth — IMPS vs NEFT vs RTGS",
+        "k": "text",
+        "u": "https://www.wintwealth.com/blog/?p=5559"
+      },
+      {
+        "t": "NPCI product pages for UPI and IMPS",
+        "k": "text",
+        "n": "Search 'NPCI UPI product overview'. Read 'how it works' and 'features'."
+      },
+      {
+        "t": "YouTube: 'UPI architecture explained NPCI'",
+        "k": "video",
+        "n": "Also 'NEFT vs RTGS vs IMPS difference'."
+      }
+    ],
+    "ex": "Build a one-page comparison table: operator, launch year, settlement model, hours, min/max amount, identifier used (IFSC, MMID, VPA), typical use, how a failed transaction reverses. Then send ₹1 by UPI, IMPS and NEFT and note what the app shows at each step.",
+    "cp": "Why does NEFT settle in half-hourly batches but IMPS is instant, when both are electronic? Who carries the settlement risk in between?"
+  },
+  {
+    "id": "m3",
+    "title": "Swift and Swift gpi",
+    "week": "Week 3",
+    "goal": "Explain what Swift is (and isn't), what FIN and FINplus are, how gpi tracking works, and what a UETR is.",
+    "topics": "Swift the cooperative vs the network vs the standards · gpi · UETR · Tracker",
+    "res": [
+      {
+        "t": "Swift — What is a UETR?",
+        "k": "text",
+        "u": "https://www.swift.com/node/247781",
+        "n": "Official. The 36-character reference; Basic Tracker vs gpi Tracker."
+      },
+      {
+        "t": "Swift — What are UETRs and are you ready to process them?",
+        "k": "text",
+        "u": "https://www.swift.com/news-events/news/what-are-uetrs-and-are-you-ready-process-them",
+        "n": "The 2018 mandate, field 121, and why missing UETRs get NAK'd."
+      },
+      {
+        "t": "Swift webinar deck — Future-proof payment operations with gpi (PDF)",
+        "k": "text",
+        "u": "https://swift.com/swift_resource/184881",
+        "n": "Tracker screens and SR2018 rules with diagrams."
+      },
+      {
+        "t": "Xflow — Swift gpi explained",
+        "k": "text",
+        "u": "https://www.xflowpay.com/blog/swift-gpi",
+        "n": "Plain-language summary; notes that gCCT/gCOV are legacy names."
+      },
+      {
+        "t": "Wikipedia: SWIFT",
+        "k": "text",
+        "n": "History, governance, FIN, RMA."
+      },
+      {
+        "t": "YouTube: 'Swift gpi explained'",
+        "k": "video",
+        "n": "Also 'what is Swift network banking explained'."
+      }
+    ],
+    "ex": "Write half a page explaining gpi to a corporate treasurer who asks 'why can't I track my wire like a parcel?' Use the words UETR, Tracker and confirmation.",
+    "cp": "What is the difference between Swift being 'a network' and Swift being 'a standard'? One example of each."
+  },
+  {
+    "id": "m4",
+    "title": "Correspondent banking: RMA, accounts and roles",
+    "week": "Week 4",
+    "goal": "Define nostro, vostro, loro and mirror accounts from each bank's point of view, and name every party in a cross-border chain.",
+    "topics": "RMA · accounting concept · nostro / vostro / loro / nostro mirror · originator, receiver, sender correspondent, receiver correspondent, intermediary, account with institution",
+    "res": [
+      {
+        "t": "Razorpay — Understanding nostro, vostro, loro accounts",
+        "k": "text",
+        "u": "https://razorpay.com/blog/understanding-nostro-vostro-loro-accounts/",
+        "n": "Indian-bank examples; includes reconciliation."
+      },
+      {
+        "t": "Eximpe — Nostro and vostro accounts explained",
+        "k": "text",
+        "u": "https://eximpe.com/blog/psp/nostro-vostro-accounts-key-differences",
+        "n": "SBI / Citi worked example."
+      },
+      {
+        "t": "Unacademy — Nostro, vostro, loro study notes",
+        "k": "text",
+        "u": "https://unacademy.com/content/bank-exam/study-material/general-awareness/nostro-vostro-loro-accounts/"
+      },
+      {
+        "t": "Icon Partners — Nostro and vostro accounts explained",
+        "k": "text",
+        "u": "https://www.icon.partners/post/nostro-and-vostro-accounts-explained",
+        "n": "Historical context."
+      },
+      {
+        "t": "Wikipedia: Nostro and vostro accounts, Correspondent account, Intermediary bank",
+        "k": "text"
+      },
+      {
+        "t": "Swift — Relationship Management Application (RMA) overview",
+        "k": "text",
+        "n": "Search swift.com for 'RMA'. Why two banks must authorise each other before exchanging FIN."
+      },
+      {
+        "t": "YouTube: 'nostro vostro account explained'",
+        "k": "video",
+        "n": "Also 'correspondent banking explained'."
+      }
+    ],
+    "ex": "USD payment from an Indian company to a German supplier. Draw the chain: Indian bank → its NY correspondent → the German bank's USD correspondent → German bank. For each hop write which account is debited and credited and whether it is nostro or vostro from both banks' perspectives. Add the nostro mirror entries on the Indian bank's books.",
+    "cp": "One bank's nostro is another bank's what? Why does the Indian bank keep a mirror account at all?"
+  },
+  {
+    "id": "m5",
+    "title": "Identifiers, acknowledgements and charges",
+    "week": "Week 5",
+    "goal": "Decode a BIC and an IBAN, explain ACK/NAK, and apply BEN/SHA/OUR to a worked example.",
+    "topics": "BIC · IBAN · ACK and NAK · charges BEN / SHA / OUR",
+    "res": [
+      {
+        "t": "Wikipedia: ISO 9362 (BIC) and International Bank Account Number",
+        "k": "text",
+        "n": "BIC = 4 bank + 2 country + 2 location + 3 branch. IBAN structure and check digits."
+      },
+      {
+        "t": "Swift IBAN Registry (PDF)",
+        "k": "text",
+        "n": "Search 'Swift IBAN registry'. Look up DE, GB, AE — and note India doesn't use IBAN."
+      },
+      {
+        "t": "Tazapay — Guide to MT103",
+        "k": "text",
+        "u": "https://docs.tazapay.com/docs/guide-to-mt103-explanation-and-usage",
+        "n": "Clear OUR / SHA / BEN section and a how-to-read guide."
+      },
+      {
+        "t": "Swift FIN ACK / NAK",
+        "k": "text",
+        "n": "The UETR article (Module 3) shows a NAK in action. Search 'Swift FIN ACK NAK error codes' for a vendor explainer."
+      },
+      {
+        "t": "YouTube: 'IBAN explained structure check digit'",
+        "k": "video",
+        "n": "Also 'BIC SWIFT code explained'."
+      }
+    ],
+    "ex": "A €10,000 payment goes through two intermediaries each charging €15, and the beneficiary bank charges €10. Show what the beneficiary receives and who pays what under BEN, SHA and OUR. Explain why SHA is the SEPA default and why OUR can still result in deductions.",
+    "cp": "Decode CITIINBXXXX and DEUTDEFF500 without looking anything up."
+  },
+  {
+    "id": "m6",
+    "title": "Payment methods: direct, serial and cover",
+    "week": "Week 5",
+    "goal": "Draw the serial and cover methods, name the messages in each leg, and explain why cover exists.",
+    "topics": "Direct · serial · cover (MT103 + MT202 COV / pacs.008 + pacs.009 COV)",
+    "res": [
+      {
+        "t": "Scribd — SWIFT (free to read online)",
+        "k": "text",
+        "u": "https://www.scribd.com/document/695670116/Swift",
+        "n": "MT101/103/202/202 COV with examples and nostro/vostro context. Read it for the diagrams."
+      },
+      {
+        "t": "Serial vs cover explainer",
+        "k": "text",
+        "n": "Search 'serial vs cover payment MT103 MT202 COV explained' and pick a bank or consultancy page with diagrams."
+      },
+      {
+        "t": "Cleverence — SWIFT message types: definitive reference (MT, MX, ISO 20022)",
+        "k": "text",
+        "u": "https://www.cleverence.com/articles/oracle-documentation/swift-message-type-reference-6384/",
+        "n": "Overview of the categories used in Modules 7–8."
+      },
+      {
+        "t": "YouTube: 'cover payment vs serial payment swift'",
+        "k": "video",
+        "n": "Also 'MT202 COV explained'."
+      }
+    ],
+    "ex": "Redraw the Module 4 USD chain twice — serial (MT103 passed bank to bank) and cover (MT103 direct to beneficiary bank, MT202 COV through correspondents). Mark which message carries customer details and which moves the money. Explain why cover is faster but was historically weaker for sanctions screening, and what MT202 COV fixed.",
+    "cp": "In the cover method, which bank sees the beneficiary's name?"
+  },
+  {
+    "id": "m7",
+    "title": "Swift MT messages: Categories 1, 2 and 9",
+    "week": "Weeks 6–7",
+    "goal": "Read an MT103 field by field, know the purpose of every message in the syllabus, and recognise a statement message.",
+    "topics": "MT101, MT103, MT103 STP, MT191, MT192, MT195 · MT201, MT202 · MT900, MT910, MT940, MT942, MT950",
+    "res": [
+      {
+        "t": "OhMyFin — MT103 fields explained (full list)",
+        "k": "text",
+        "u": "https://ohmyfin.ai/swift/mt103-fields-(swift)",
+        "n": "The best free field-by-field table."
+      },
+      {
+        "t": "Tazapay — Guide to MT103",
+        "k": "text",
+        "u": "https://docs.tazapay.com/docs/guide-to-mt103-explanation-and-usage",
+        "n": "How to read one."
+      },
+      {
+        "t": "Wikipedia: MT103 and SWIFT message types",
+        "k": "text",
+        "n": "The table of all categories."
+      },
+      {
+        "t": "MT101, MT191, MT192, MT195, MT201, MT202",
+        "k": "text",
+        "n": "Cleverence reference and Scribd document (Module 6). For MT192/195 read Swift's E&I page (Module 10)."
+      },
+      {
+        "t": "Goldman Sachs Developer — SWIFT Reporting (MT940/942/950)",
+        "k": "text",
+        "u": "https://developer.gs.com/docs/services/transaction-banking/swift-reporting/",
+        "n": "One-paragraph definitions."
+      },
+      {
+        "t": "Razorpay — MT940 SWIFT message guide",
+        "k": "text",
+        "u": "https://razorpay.com/blog/mt940-swift-message-guide/",
+        "n": "Tag 61 and tag 86, plus the camt.053 transition."
+      },
+      {
+        "t": "National Bank of Canada — Swift statements user guide (PDF)",
+        "k": "text",
+        "u": "https://nbc.ca/content/dam/bnc/outils-apps/entreprises/guides/user-guide-mt940-mt101.pdf",
+        "n": "A real bank's MT940/MT942 spec, with MT101."
+      },
+      {
+        "t": "ABN AMRO — Reporting format book (PDF)",
+        "k": "text",
+        "u": "https://www-et5.abnamro.nl/nl/media/AOL_Reporting_Download_Format_Book_tcm16-116811.pdf",
+        "n": "Why MT942 entries are preliminary and how they relate to MT940."
+      },
+      {
+        "t": "Cambridge Currencies — Field 25 in SWIFT messages",
+        "k": "text",
+        "u": "https://cambridgecurrencies.com/field-25-in-swift-messages-importance-and-best-practices/",
+        "n": "Contains a full sample MT940 to practise on."
+      },
+      {
+        "t": "YouTube: 'SWIFT MT 103 explained block by block field by field'",
+        "k": "video",
+        "n": "Also 'MT101 vs MT103 difference', 'MT202 explained'."
+      }
+    ],
+    "ex": "Annotate every tag in the sample MT940. Then write an MT103 from scratch for the Module 4 payment: fields 20, 23B, 32A, 50K, 52A, 57A, 59, 70, 71A. Finally write the MT900 the correspondent sends after debiting the nostro.",
+    "cp": "What's the difference between MT940 and MT950? Between MT103 and MT103 STP?"
+  },
+  {
+    "id": "m8",
+    "title": "ISO 20022: MT to MX and the core messages",
+    "week": "Weeks 8–9",
+    "goal": "Explain the pain / pacs / camt families, map the syllabus MT messages to MX equivalents, and read a pacs.008.",
+    "topics": "MT→MX · ISO 20022 terms · pain.001, pain.002 · pacs.002, pacs.004, pacs.008, pacs.009 · camt.052, camt.053, camt.054, camt.056, camt.029",
+    "res": [
+      {
+        "t": "Swift — ISO 20022 for FIs: Get started (links the free 'ISO 20022 for Dummies')",
+        "k": "text",
+        "u": "https://swift.com/standards/iso-20022/iso-20022-payments-financial-institutions/get-started",
+        "n": "Read the Dummies e-book first."
+      },
+      {
+        "t": "Swift — ISO 20022 in bytes: The journey continues",
+        "k": "text",
+        "u": "https://www.swift.com/standards/iso-20022/iso-20022-bytes/journey-continues",
+        "n": "Where things stand after Nov 2025; the Nov 2026 structured-address rule."
+      },
+      {
+        "t": "Swift — CBPR+ roadmap after Nov 2025 (slide deck)",
+        "k": "text",
+        "u": "https://www.swift.com/swift-resource/252485/download",
+        "n": "Full MT→MX mapping by family. Print the mapping page."
+      },
+      {
+        "t": "Swift — CBPR+ roadmap beyond 2025 (PDF)",
+        "k": "text",
+        "u": "https://www.swift.com/sites/default/files/files/cbpr-phase-2-roadmap_detailed_v3.pdf",
+        "n": "MT 9xx → camt.05x timelines to 2028."
+      },
+      {
+        "t": "Mambu — CBPR+ is live: what ISO 20022 means in practice",
+        "k": "text",
+        "u": "https://mambu.com/insights/articles/cbpr-is-live-what-iso-20022-means-in-practice"
+      },
+      {
+        "t": "iso20022.org — message catalogue",
+        "k": "text",
+        "u": "https://www.iso20022.org/catalogue-messages/iso-20022-messages-archive?page=4",
+        "n": "Every camt E&I message by name; navigate up for current pain/pacs/camt definitions and XSDs."
+      },
+      {
+        "t": "BNY Mellon — ISO 20022 training deck, Module 7 (PDF)",
+        "k": "text",
+        "u": "https://www.bny.com/content/dam/bnymellon/documents/pdf/iso-20022/presentation-module7.pdf",
+        "n": "Free slide series; search 'BNY ISO 20022 presentation module' for the pacs and camt decks."
+      },
+      {
+        "t": "YouTube: 'ISO 20022 explained pain pacs camt'",
+        "k": "video",
+        "n": "Also 'pacs.008 vs MT103 mapping'."
+      }
+    ],
+    "ex": "Convert your Module 7 MT103 into a pacs.008 using the BNY deck for element names. Note every field where MX carries more than MT (structured address, LEI, purpose code, structured remittance). Then write the pacs.002 and the camt.054 that follow it.",
+    "cp": "Without notes: MT101 → ? · MT103 → ? · MT202 → ? · MT192 → ? · MT196 → ? · MT940 → ? · MT942 → ? · MT900/910 → ?"
+  },
+  {
+    "id": "m9",
+    "title": "Rejects and returns",
+    "week": "Week 10",
+    "goal": "Distinguish a reject from a return, name the messages for each, and list the top reasons payments fail.",
+    "topics": "Rejects vs returns · pacs.002 negative status · pacs.004 return · reason codes",
+    "res": [
+      {
+        "t": "Mambu article (Module 8)",
+        "k": "text",
+        "u": "https://mambu.com/insights/articles/cbpr-is-live-what-iso-20022-means-in-practice",
+        "n": "pacs.004 replacing returns; pacs.002 for status."
+      },
+      {
+        "t": "EPC — Guidance on reason codes for SCT R-transactions (PDF, via document library)",
+        "k": "text",
+        "u": "https://www.europeanpaymentscouncil.eu/node?page=12",
+        "n": "The clearest free reason-code reference; ISO codes are shared across schemes."
+      },
+      {
+        "t": "EPC — Clarification paper on SCT and SCT Inst rulebooks",
+        "k": "text",
+        "u": "https://www.europeanpaymentscouncil.eu/node/17811",
+        "n": "How PSPs handle the edge cases the rulebooks don't cover."
+      },
+      {
+        "t": "iso20022.org — External code sets (ExternalReasonCode)",
+        "k": "text",
+        "n": "Search 'ISO 20022 external code sets'. AC01, AC04, AM04, RC01 and friends."
+      },
+      {
+        "t": "YouTube: 'payment reject vs return difference'",
+        "k": "video",
+        "n": "Also 'pacs.004 return explained'."
+      }
+    ],
+    "ex": "List ten reasons a cross-border payment fails. For each: reject (before acceptance) or return (after)? Which message carries it? Which ISO reason code? This table is one of the most useful things a payments BA owns.",
+    "cp": "A payment is accepted by the beneficiary bank, then sent back two days later because the account is closed. Reject or return? Which message?"
+  },
+  {
+    "id": "m10",
+    "title": "Exceptions and investigations",
+    "week": "Week 11",
+    "goal": "Describe each E&I scenario, name its MT and MX message, and explain Swift Case Management.",
+    "topics": "Cancel / modify · unable to apply · claim non-receipt · resolution · case assignment · duplicate · rejection · case status · debit authorisation",
+    "res": [
+      {
+        "t": "Swift — ISO 20022: Exceptions and Investigations FAQ",
+        "k": "text",
+        "u": "https://www.swift.com/standards/iso-20022/iso-20022-faqs/iso-20022-exceptions-and-investigations",
+        "n": "Official MT→MX map (MT192 → camt.056, MT196 → camt.029, MT195/199 → camt.110/111), Case Orchestrator, Stop and Recall, timelines."
+      },
+      {
+        "t": "BNY Mellon — ISO 20022 Module 7: E&I (PDF)",
+        "k": "text",
+        "u": "https://www.bny.com/content/dam/bnymellon/documents/pdf/iso-20022/presentation-module7.pdf",
+        "n": "Maps every syllabus scenario to its camt number (026, 027, 028, 029, 030, 031, 032, 033, 034, 036/037, 038/039, 056, 087)."
+      },
+      {
+        "t": "iso20022.org archive page",
+        "k": "text",
+        "u": "https://www.iso20022.org/catalogue-messages/iso-20022-messages-archive?page=4",
+        "n": "Same list with full message names."
+      },
+      {
+        "t": "DPS — ISO 20022 for E&I: what banks need to consider",
+        "k": "text",
+        "u": "https://dps.de/en/news/iso-20022-for-exceptions-investigations-what-banks-need-to-consider/",
+        "n": "The Nov 2026 and Nov 2027 milestones explained."
+      },
+      {
+        "t": "YouTube: 'Swift case management exceptions investigations'",
+        "k": "video",
+        "n": "Also 'camt.056 camt.029 explained'."
+      }
+    ],
+    "ex": "Write four scenario scripts as message sequences with sender and receiver: (1) recall a payment sent yesterday; (2) beneficiary bank can't apply a credit — wrong account; (3) beneficiary says funds never arrived; (4) an intermediary needs authorisation to debit a charge. Give the MT and the MX version of each.",
+    "cp": "Why can camt.056/029 be exchanged bilaterally but camt.110/111 cannot?"
+  },
+  {
+    "id": "m11",
+    "title": "Payment engines, hubs, STP and host-to-host",
+    "week": "Week 12",
+    "goal": "Describe a hub's processing stages, define STP and non-STP causes, and draw a host-to-host flow between an ERP and a bank.",
+    "topics": "Payment engine / hub · STP and non-STP · repair queues · H2H architecture and flow",
+    "res": [
+      {
+        "t": "TreasuryXL — What is host-to-host (H2H) banking integration?",
+        "k": "text",
+        "u": "https://treasuryxl.com/blog/what-is-host-to-host-h2h-banking-integration/",
+        "n": "H2H, SFTP/PGP, and what 'true STP' means from the corporate side."
+      },
+      {
+        "t": "Cobase — Everything you need to know about host-to-host channels",
+        "k": "text",
+        "u": "https://www.cobase.com/insight-hub/everything-you-need-to-know-about-host-to-host-channels"
+      },
+      {
+        "t": "Axis Bank — Host to host integration",
+        "k": "text",
+        "u": "https://axis.bank.in/corporate/cash-management-services/host-to-host-integration",
+        "n": "A real Indian bank's H2H product: SFTP, encryption, reverse update to ERP."
+      },
+      {
+        "t": "Lloyds — How tech can turbocharge bank connectivity",
+        "k": "text",
+        "u": "https://www.lloydsbank.com/islands/commercial/gem/how-tech-can-turbocharge-bank-connectivity.html",
+        "n": "H2H vs API."
+      },
+      {
+        "t": "Intellect — Payment Services Hub",
+        "k": "text",
+        "u": "https://www.polarisft.com/ft-products/hubs/payment-services-hub.html",
+        "n": "Read as a checklist of what a hub does: orchestration, exceptions, format conversion, screening, status."
+      },
+      {
+        "t": "Oracle Banking Payments — Cross Border Payments User Guide (PDF)",
+        "k": "text",
+        "u": "https://docs.oracle.com/cd/F42401_01/PDF/User_Guides/Oracle-Banking-Payments_Modules/CrossBorder_Payments.pdf",
+        "n": "The complete spec of a real hub. Chapter 2 (maintenances) and the transaction-input chapters."
+      },
+      {
+        "t": "YouTube: 'payment hub architecture explained'",
+        "k": "video",
+        "n": "Also 'host to host connectivity bank ERP'."
+      }
+    ],
+    "ex": "Draw the end-to-end flow: ERP → pain.001 over SFTP → H2H gateway → hub (validation, enrichment, screening, routing, accounting) → Swift / RTGS / NEFT / UPI → pacs.002 / camt.054 back → pain.002 / camt.053 to the ERP. Mark the five places a payment most often drops out of STP and what a BA would specify to fix each.",
+    "cp": "What is the difference between a payment engine and a payment hub? Where does sanctions screening sit relative to STP?"
+  },
+  {
+    "id": "m12",
+    "title": "Business analyst add-ons",
+    "week": "Weeks 13–14",
+    "goal": "Write a BRD/FRD/SRD structure, describe Scrum roles and events, outline the SDLC and testing levels, and write basic SQL against a payments table.",
+    "topics": "BRD / FRD / SRD · Scrum · SDLC and testing · SQL",
+    "res": [
+      {
+        "t": "Wikipedia: Business requirements, Functional requirement, Software requirements specification",
+        "k": "text",
+        "n": "The three definitions and the difference between them."
+      },
+      {
+        "t": "Atlassian — product requirements document template and user stories guides",
+        "k": "text",
+        "n": "Search 'Atlassian product requirements document template'."
+      },
+      {
+        "t": "IIBA — Business Analysis Core Concept Model (free intro material)",
+        "k": "text",
+        "n": "Search 'IIBA BACCM'."
+      },
+      {
+        "t": "The official Scrum Guide 2020 (PDF, 13 pages)",
+        "k": "text",
+        "u": "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf"
+      },
+      {
+        "t": "Scrum Guide audiobook — free on Udemy (38 min)",
+        "k": "audio",
+        "u": "https://www.udemy.com/course/scrum-guide-audio-book/"
+      },
+      {
+        "t": "Michael Vizdos — free Scrum Guide audiobook, interactive guide and video playlist",
+        "k": "audio",
+        "u": "https://www.implementingscrum.com/scrumguide/"
+      },
+      {
+        "t": "Scrum.org — how to use the free Open Assessments",
+        "k": "interactive",
+        "u": "https://www.scrum.org/node/16303"
+      },
+      {
+        "t": "Wikipedia: Systems development life cycle, Software testing, Test case, Acceptance testing",
+        "k": "text"
+      },
+      {
+        "t": "ISTQB Foundation Level syllabus (free PDF from istqb.org)",
+        "k": "text",
+        "n": "Search 'ISTQB CTFL syllabus PDF'. Chapters 1–2 for fundamentals and test levels."
+      },
+      {
+        "t": "SQLBolt — interactive SQL lessons",
+        "k": "interactive",
+        "n": "sqlbolt.com — 18 short browser lessons. Do all of them."
+      },
+      {
+        "t": "W3Schools SQL tutorial",
+        "k": "interactive",
+        "n": "w3schools.com/sql — reference with a try-it editor."
+      }
+    ],
+    "ex": "(a) Mini-BRD and mini-FRD for 'Add structured address validation to outbound cross-border payments before November 2026'. (b) Turn the FRD into five user stories and a two-sprint plan. (c) Ten test cases, five positive and five negative, each with a sample pacs.008 and expected result, plus a UAT sign-off checklist. (d) Design a payments table and write queries: returns last month by reason code; value per currency per day; payments in repair over 24 hours; top five correspondent BICs by volume.",
+    "cp": "Explain to a developer the difference between a business requirement and a functional requirement, using structured addresses as the example."
+  }
+]
