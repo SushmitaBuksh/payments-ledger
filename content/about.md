@@ -1,6 +1,6 @@
-# About
+# About this site
 
-I'm Sushmita, a payments business analyst at a global bank, working toward becoming a payments domain expert. This site is my learning in public: a free, structured course I assembled from the best openly available resources, and the articles I write as I work through it.
+Payments Domain Guide is written by Sushmita Buksh, a payments business analyst at a global bank working toward becoming a payments domain expert. It is her learning in public: a free, structured course I assembled from the best openly available resources, and the articles I write as I work through it.
 
 ## Why a public site
 

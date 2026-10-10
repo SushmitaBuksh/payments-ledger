@@ -48,11 +48,16 @@ def parse_article(path):
     summary = meta.get("summary") or re.sub(r"\s+", " ", re.sub(r"[#*`>\[\]()_]", "", body_wo_h1)).strip()[:180]
     words = len(body_wo_h1.split())
     return dict(title=title, date=date, slug=slug, tags=tags, module=meta.get("module", ""),
+                series=meta.get("series", ""), order=int(meta.get("order", "0") or 0),
                 summary=summary, html=md_to_html(body_wo_h1), words=words, draft=meta.get("draft","").lower()=="true")
 
 articles = sorted(
     [a for a in (parse_article(p) for p in sorted((CONTENT / "articles").glob("*.md"))) if not a["draft"]],
-    key=lambda a: a["date"], reverse=True)
+    key=lambda a: (a["date"], -a["order"]), reverse=True)
+
+SERIES_TITLES = site.get("series", {})
+def series_parts(name):
+    return sorted([x for x in articles if x["series"] == name], key=lambda x: x["order"])
 
 # ---------- layout ----------
 CSS = (ROOT / "style.css").read_text()
@@ -69,7 +74,7 @@ def page(title, body, desc, path, kind="website"):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title) if title != site["name"] else esc(site["name"]) + " — " + esc(site["tagline"].split(" — ")[0])}{" · " + esc(site["name"]) if title != site["name"] else ""}</title>
+<title>{esc(site["home_title"]) if title == site["name"] else esc(title) + " · " + esc(site["name"])}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(url)}">
 <meta property="og:title" content="{esc(title)}">
@@ -96,7 +101,7 @@ def page(title, body, desc, path, kind="website"):
 {body}
 </main>
 <footer class="foot">
-  <p>{esc(site['name'])} — notes on payments, Swift, ISO 20022 and the business-analyst craft, by {esc(site['author'])}. {esc(site.get('tagline',''))}</p>
+  <p>{esc(site['name'])} — {esc(site.get('tagline',''))} <a href="{rel}about/">About this site</a>.</p>
   <p><a href="{rel}sitemap.xml">Sitemap</a> · <a href="{rel}feed.xml">RSS</a>{(' · <a href="'+esc(site['linkedin'])+'">LinkedIn</a>') if site.get('linkedin') else ''}</p>
 </footer>
 </body>
@@ -126,21 +131,31 @@ def article_row(a):
   <span class="am">{tag}{esc(a['date'])} · {a['words']} words</span>
   <span class="as">{esc(a['summary'])}</span></a></li>"""
 
+def series_teaser():
+    out=""
+    for key, stitle in SERIES_TITLES.items():
+        parts=[x for x in series_parts(key) if x["order"]>0]; idx=next((x for x in series_parts(key) if x["order"]==0),None)
+        if not parts: continue
+        out+=f"""<div class="box"><p><strong>{esc(stitle)}</strong> — {len(parts)} parts that build the domain from first principles: instruments, push and pull, the four-corner model, clearing and settlement, accounting, cross-border, correspondent banking, Swift, SEPA and ISO 20022. Each part has worked examples and links to the next.</p>
+<p style="margin-top:8px"><a class="btn" href="{{BASE}}/articles/{(idx or parts[0])['slug']}/">{'Read the series map' if idx else 'Start with part 1'}</a></p></div>"""
+    return out
+
 # Home
 recent = "".join(article_row(a) for a in articles[:5]) or '<li class="empty">First articles coming soon.</li>'
 home = f"""
 <section class="hero">
-  <h1>{esc(site['name'])}</h1>
-  <p class="lede">{esc(site['tagline'])}</p>
-  <p class="lede">A free, structured course on the payments domain — Indian rails, Swift and gpi, correspondent banking, MT and ISO 20022 messages, exceptions and investigations, payment hubs — plus the articles written along the way.</p>
+  <h1>{esc(site['home_h1'])}</h1>
+  <p class="lede">{esc(site['home_desc'])}</p>
   <p><a class="btn" href="{{BASE}}/course/">Start the course</a> <a class="btn ghost" href="{{BASE}}/articles/">Read the articles</a></p>
 </section>
+<h2>Start here: the series</h2>
+{series_teaser()}
 <h2>The course</h2>
 <div class="grid">{"".join(module_card(m,i) for i,m in enumerate(modules))}</div>
 <h2>Latest articles</h2>
 <ul class="art-list">{recent}</ul>
 """
-write("index.html", page(site["name"], home, site["tagline"], "index.html")); urls.append("")
+write("index.html", page(site["name"], home, site["home_desc"], "index.html")); urls.append("")
 
 # Course index
 course = f"""
@@ -181,9 +196,43 @@ for i, m in enumerate(modules):
     write(f"course/{m['id']}/index.html", page(f"{i+1:02d} · {m['title']}", body, m["goal"], f"course/{m['id']}/index.html")); urls.append(f"course/{m['id']}/")
 
 # Articles index
-alist = "".join(article_row(a) for a in articles) or '<li class="empty">No articles yet.</li>'
-write("articles/index.html", page("Articles", f"<h1>Articles</h1><p class='lede'>Write-ups from the course: exercise answers, message explainers, comparison tables and the occasional opinion.</p><ul class='art-list'>{alist}</ul>",
+series_html = ""
+for key, stitle in SERIES_TITLES.items():
+    parts = series_parts(key)
+    if parts:
+        idx = next((x for x in parts if x["order"] == 0), None); numbered = [x for x in parts if x["order"] > 0]
+        intro = f"<p class='lede small'>{len(numbered)} parts, written to be read in order." + (f" <a href='{{BASE}}/articles/{idx['slug']}/'>Start with the series map.</a>" if idx else "") + "</p>"
+        series_html += f"<h2>{esc(stitle)}</h2>" + intro + "<ol class='series-list'>" + "".join(
+            f'<li><a href="{{BASE}}/articles/{x["slug"]}/">{esc(x["title"])}</a><span class="as">{esc(x["summary"])}</span></li>' for x in numbered) + "</ol>"
+others = [a for a in articles if not a["series"]]
+alist = (series_html + ("<h2>Other articles</h2>" if series_html and others else "") +
+         ("<ul class='art-list'>" + "".join(article_row(a) for a in others) + "</ul>" if others else "")) or '<li class="empty">No articles yet.</li>'
+write("articles/index.html", page("Articles", f"<h1>Articles</h1><p class='lede'>Write-ups from the course: exercise answers, message explainers, comparison tables and the occasional opinion.</p>{alist}",
       "Articles on payments, Swift, ISO 20022 and business analysis.", "articles/index.html")); urls.append("articles/")
+
+def series_nav(a):
+    if not a["series"]: return ""
+    allparts = series_parts(a["series"])
+    index = next((x for x in allparts if x["order"] == 0), None)
+    parts = [x for x in allparts if x["order"] > 0]
+    if len(parts) < 2: return ""
+    title = SERIES_TITLES.get(a["series"], a["series"])
+    items = "".join(
+        f'<li class="{"cur" if x["slug"]==a["slug"] else ""}">' +
+        (esc(x["title"]) if x["slug"]==a["slug"] else f'<a href="{{BASE}}/articles/{x["slug"]}/">{esc(x["title"])}</a>') +
+        "</li>" for x in parts)
+    idx_link = f' · <a href="{{BASE}}/articles/{index["slug"]}/">Series map</a>' if index and index["slug"] != a["slug"] else ""
+    if a["order"] == 0:
+        head = f"{esc(title)} — all {len(parts)} parts"
+        pager = ""
+    else:
+        i = next(k for k,x in enumerate(parts) if x["slug"] == a["slug"])
+        head = f"{esc(title)} — part {i+1} of {len(parts)}{idx_link}"
+        prev = f'<a href="{{BASE}}/articles/{parts[i-1]["slug"]}/">← Part {i}: {esc(parts[i-1]["title"])}</a>' if i>0 else (f'<a href="{{BASE}}/articles/{index["slug"]}/">← Series map</a>' if index else "<span></span>")
+        nxt = f'<a href="{{BASE}}/articles/{parts[i+1]["slug"]}/">Part {i+2}: {esc(parts[i+1]["title"])} →</a>' if i<len(parts)-1 else "<span></span>"
+        pager = f'<div class="pager">{prev}{nxt}</div>'
+    return f"""{pager}
+<aside class="series"><h3>{head}</h3><ol>{items}</ol></aside>"""
 
 # Article pages
 for a in articles:
@@ -195,6 +244,7 @@ for a in articles:
 <h1>{esc(a['title'])}</h1>
 <p class="small muted">{modlink}{esc(a['date'])} · {a['words']} words {tags}</p>
 <article class="prose">{a['html']}</article>
+{series_nav(a)}
 """
     write(f"articles/{a['slug']}/index.html", page(a["title"], body, a["summary"], f"articles/{a['slug']}/index.html", kind="article")); urls.append(f"articles/{a['slug']}/")
 

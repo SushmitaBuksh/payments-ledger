@@ -1,12 +1,15 @@
 ---
 title: Clearing vs settlement — the two words you have to get right first
-date: 2026-10-07
+date: 2026-10-10
 module: 01 Intro
+series: how-money-moves
+order: 4
+slug: 2026-10-10-04-clearing-vs-settlement
 tags: fundamentals, clearing, settlement, UPI, cheques
 summary: Why a cheque takes two days and a UPI payment takes two seconds, explained with the two concepts that underpin every payment system.
 ---
 
-Almost every confusing conversation I've had about payments came down to two words being used loosely: **clearing** and **settlement**. Get these straight and the rest of the domain starts to make sense.
+Almost every confusing conversation I've had about payments came down to two words being used loosely: **clearing** and **settlement**. Get these straight and the rest of the domain starts to make sense. In the [four-corner model](../2026-10-10-03-four-corner-model-parties/) from part 3, clearing happens in the middle (the CSM) and settlement happens at the settlement agent.
 
 ## The simple version
 
@@ -27,7 +30,7 @@ Settlement can happen in two ways.
 | Liquidity needed | High | Low |
 | Example | RTGS | NEFT, cheque clearing |
 
-The trade-off is the heart of payment-system design: gross settlement is safe but needs a lot of liquidity sitting idle; net settlement is efficient but creates exposure between banks until the batch settles.
+The trade-off is the heart of payment-system design: gross settlement is safe but needs a lot of liquidity sitting idle; net settlement is efficient but creates exposure between banks until the batch settles. [Part 5](../2026-10-10-05-netting-liquidity-settlement-risk/) puts numbers on exactly how much liquidity netting saves and what the exposure costs.
 
 ## Four payments, side by side
 
@@ -43,4 +46,8 @@ The trade-off is the heart of payment-system design: gross settlement is safe bu
 
 When a stakeholder says "the payment is done," ask: do you mean the instruction was accepted, cleared, the beneficiary was credited, or the banks have settled? Those are four different points in time, four different system states, and four different things that can go wrong. Most "where is my money" investigations are a mismatch between which of these the customer assumed and which actually happened.
 
-*This is my answer to the Module 1 exercise. The resources I used are listed on the [module page](../../course/m1/).*
+## Next
+
+Netting sounds like an accounting trick. It is actually the reason most of the world's payments are affordable — and the reason a bank failure in 1974 still shapes how settlement works. [Part 5: netting, liquidity and settlement risk, with numbers](../2026-10-10-05-netting-liquidity-settlement-risk/).
+
+*Part 4 of [How money moves](../2026-10-10-00-how-money-moves-map/). Course pairing: [Module 1](../../course/m1/).*

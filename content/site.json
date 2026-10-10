@@ -1,7 +1,13 @@
 {
-  "name": "Payments Ledger",
-  "tagline": "Learning the payments domain in public — Swift, ISO 20022, Indian rails and the BA craft.",
+  "name": "Payments Domain Guide",
+  "tagline": "A free course on how payments work — Swift, ISO 20022, UPI, SEPA and the business-analyst skills around them.",
+  "home_title": "Payments Domain Guide — learn Swift, ISO 20022, UPI and SEPA from scratch (free course)",
+  "home_h1": "Learn the payments domain, properly",
+  "home_desc": "A free 12-module course on how money moves: Indian rails (RTGS, NEFT, IMPS, UPI), Swift and gpi, correspondent banking, MT and ISO 20022 messages, rejects, returns, exceptions and investigations, payment hubs — plus articles that answer the questions payments teams actually ask.",
   "author": "Sushmita Buksh",
   "url": "https://sushmitabuksh.github.io/payments-ledger",
-  "linkedin": ""
+  "linkedin": "",
+  "series": {
+    "how-money-moves": "How money moves: payments from first principles"
+  }
 }

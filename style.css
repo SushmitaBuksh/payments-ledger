@@ -65,3 +65,13 @@ th{background:var(--paper)}
 .prose pre code{background:none;padding:0}
 .prose table{display:block;overflow-x:auto}
 .prose img{max-width:100%;border-radius:8px}
+
+.series{margin-top:28px;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:14px 18px}
+.series h3{margin:0 0 8px;font-size:16px}
+.series ol{margin:0;padding-left:22px}
+.series li{padding:3px 0;color:var(--ink-2)}
+.series li.cur{color:var(--ink);font-weight:600}
+.series-list{padding-left:22px;margin:0 0 8px}
+.series-list li{padding:8px 0;border-bottom:1px solid var(--line)}
+.series-list li a{font-family:var(--serif);font-weight:600;font-size:18px;text-decoration:none}
+.series-list .as{display:block;color:var(--ink-2);font-size:15px}
