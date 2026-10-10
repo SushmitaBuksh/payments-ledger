@@ -1,4 +1,4 @@
-# Payments Ledger — your public website
+# Payments Domain Guide — your public website
 
 A fast, Google-indexable static site: the 12-module course plus your articles. No database, no login, nothing to maintain — just files.
 
@@ -17,8 +17,8 @@ site-src/
 ## Put it online in 10 minutes (free, on GitHub Pages)
 
 1. **Create a GitHub account** at github.com if you don't have one. Pick a username — it becomes part of your web address.
-2. **Create a new repository** called `payments-ledger`, set to Public. Don't add a README.
-3. **Edit `content/site.json`**: set `"url"` to `https://YOUR-USERNAME.github.io/payments-ledger` (your real username), and add your LinkedIn URL.
+2. **Create a new repository** called `payments-domain-guide`, set to Public. Don't add a README.
+3. **Edit `content/site.json`**: set `"url"` to `https://sushmitabuksh.github.io/payments-domain-guide` (your real username), and add your LinkedIn URL.
 4. **Build** on your computer (needs Python 3):
    ```
    pip install markdown
@@ -26,7 +26,7 @@ site-src/
    ```
 5. **Upload the whole `site-src` folder** to the repository (drag and drop on github.com → "Add file → Upload files" → commit).
 6. In the repository: **Settings → Pages → Build and deployment → Source: "GitHub Actions"**. The included workflow (`.github/workflows/pages.yml`) builds and publishes automatically on every upload. First run takes about a minute.
-7. Your site is live at `https://YOUR-USERNAME.github.io/payments-ledger/`.
+7. Your site is live at `https://sushmitabuksh.github.io/payments-domain-guide/`.
 
 **Prefer not to use GitHub?** Drag the `dist` folder onto app.netlify.com/drop — you get a public URL instantly. You'll re-drag it each time you add an article.
 
@@ -37,7 +37,7 @@ site-src/
 GitHub Pages sites are public and crawlable, but Google won't know yours exists until you tell it:
 
 1. Go to **search.google.com/search-console**, add your site URL, verify ownership (the "HTML tag" method: paste the tag they give you into `build.py` inside `<head>` — ask me and I'll add it).
-2. **Sitemaps → submit** `https://YOUR-USERNAME.github.io/payments-ledger/sitemap.xml`.
+2. **Sitemaps → submit** `https://sushmitabuksh.github.io/payments-domain-guide/sitemap.xml`.
 3. First indexing takes a few days to a couple of weeks. Each time you add an article, the sitemap updates automatically; Google re-crawls on its own, or you can request indexing of the new page in Search Console.
 4. **Share each article on LinkedIn** with the link. Inbound links are the strongest signal that the page is worth ranking.
 

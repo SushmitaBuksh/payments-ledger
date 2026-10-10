@@ -75,3 +75,16 @@ th{background:var(--paper)}
 .series-list li{padding:8px 0;border-bottom:1px solid var(--line)}
 .series-list li a{font-family:var(--serif);font-weight:600;font-size:18px;text-decoration:none}
 .series-list .as{display:block;color:var(--ink-2);font-size:15px}
+
+.feedback{margin-top:28px;padding:14px 16px;border:1px dashed var(--line);border-radius:10px;font-size:15px;color:var(--ink-2)}
+.feedback strong{color:var(--ink);display:block;margin-bottom:4px}
+.quiz .qq{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:12px 16px 8px;margin:0 0 12px}
+.quiz legend{font-weight:600;padding:0 6px}
+.quiz .opt{display:flex;gap:10px;align-items:flex-start;padding:6px 4px;border-radius:6px;cursor:pointer}
+.quiz .opt input{margin-top:5px;accent-color:var(--accent)}
+.quiz .qq.right{border-color:var(--accent)}
+.quiz .qq.wrong{border-color:var(--danger)}
+.quiz .qq.right .opt.is-answer,.quiz .qq.wrong .opt.is-answer{background:var(--accent-soft)}
+.quiz .opt.is-wrong{background:var(--gold-soft);text-decoration:line-through}
+.quiz .why{margin:8px 4px 4px;padding:8px 12px;border-left:3px solid var(--gold);color:var(--ink-2);font-size:15px}
+.quiz .score{font-weight:600;margin-left:6px}

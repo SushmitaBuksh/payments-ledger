@@ -5,9 +5,10 @@
   "home_h1": "Learn the payments domain, properly",
   "home_desc": "A free 12-module course on how money moves: Indian rails (RTGS, NEFT, IMPS, UPI), Swift and gpi, correspondent banking, MT and ISO 20022 messages, rejects, returns, exceptions and investigations, payment hubs — plus articles that answer the questions payments teams actually ask.",
   "author": "Sushmita Buksh",
-  "url": "https://sushmitabuksh.github.io/payments-ledger",
-  "linkedin": "",
+  "url": "https://sushmitabuksh.github.io/payments-domain-guide",
+  "linkedin": "https://www.linkedin.com/in/sushmita-buksh-473437215",
   "series": {
     "how-money-moves": "How money moves: payments from first principles"
-  }
+  },
+  "repo": "https://github.com/SushmitaBuksh/payments-domain-guide"
 }

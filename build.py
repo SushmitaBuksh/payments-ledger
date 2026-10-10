@@ -17,6 +17,8 @@ DIST = ROOT / "dist"
 
 site = json.loads((CONTENT / "site.json").read_text())
 modules = json.loads((CONTENT / "modules.json").read_text())
+quizzes = json.loads((CONTENT / "quizzes.json").read_text()) if (CONTENT / "quizzes.json").exists() else {}
+REPO = site.get("repo", "")
 BASE = site["url"].rstrip("/")
 TODAY = datetime.date.today().isoformat()
 
@@ -95,6 +97,7 @@ def page(title, body, desc, path, kind="website"):
     <a href="{rel}course/">Course</a>
     <a href="{rel}articles/">Articles</a>
     <a href="{rel}about/">About</a>
+    <a href="{rel}feedback/">Feedback</a>
   </nav>
 </header>
 <main class="wrap">
@@ -122,7 +125,7 @@ def kind_label(k): return {"text":"Read","video":"Watch","audio":"Listen","inter
 def module_card(m, i):
     return f"""<a class="card" href="{{BASE}}/course/{m['id']}/">
   <span class="num">{i+1:02d}</span>
-  <span class="ct"><strong>{esc(m['title'])}</strong><span class="sub">{esc(m['week'])} · {len(m['res'])} resources</span></span>
+  <span class="ct"><strong>{esc(m['title'])}</strong><span class="sub">{esc(m['week'])} · {len(m['res'])} resources{' · quiz' if quizzes.get(m['id']) else ''}</span></span>
 </a>"""
 
 def article_row(a):
@@ -130,6 +133,37 @@ def article_row(a):
     return f"""<li><a href="{{BASE}}/articles/{a['slug']}/"><span class="at">{esc(a['title'])}</span>
   <span class="am">{tag}{esc(a['date'])} · {a['words']} words</span>
   <span class="as">{esc(a['summary'])}</span></a></li>"""
+
+import urllib.parse as _up
+def issue_link(kind, title):
+    if not REPO: return "{BASE}/feedback/"
+    labels = {"resource":"Suggest a resource", "error":"Report an error", "broken":"Broken link", "question":"Question"}
+    t = _up.quote(f"[{labels.get(kind,kind)}] {title}")
+    b = _up.quote(f"Page: {title}\n\n(Describe the resource, error or question here.)")
+    return f"{REPO}/issues/new?title={t}&body={b}"
+def feedback_box(title):
+    return f"""<div class="feedback"><strong>Spotted an error or know a better resource?</strong>
+<a href="{issue_link('error', title)}" rel="noopener">Report an error</a> ·
+<a href="{issue_link('resource', title)}" rel="noopener">Suggest a resource</a> ·
+<a href="{issue_link('broken', title)}" rel="noopener">Report a broken link</a> ·
+<a href="{{BASE}}/feedback/">Other ways to get in touch</a></div>"""
+
+def quiz_html(mid):
+    qs = quizzes.get(mid)
+    if not qs: return ""
+    items = ""
+    for qi, q in enumerate(qs):
+        opts = "".join(f'<label class="opt"><input type="radio" name="q{qi}" value="{oi}"> <span>{esc(o)}</span></label>' for oi, o in enumerate(q["o"]))
+        items += f'<fieldset class="qq" data-a="{q["a"]}"><legend>{qi+1}. {esc(q["q"])}</legend>{opts}<div class="why" hidden>{esc(q["x"])}</div></fieldset>'
+    return f"""<h2 id="quiz">Quick quiz</h2>
+<p class="small muted">Four questions. Nothing is recorded; it is just for you.</p>
+<form class="quiz" onsubmit="return false">{items}
+<div class="row"><button type="button" class="btn" data-check>Check my answers</button><button type="button" class="btn ghost" data-reset>Reset</button><span class="score" aria-live="polite"></span></div></form>
+<script>
+(function(){{var f=document.querySelector('form.quiz');if(!f)return;
+f.querySelector('[data-check]').onclick=function(){{var n=0,t=0;f.querySelectorAll('.qq').forEach(function(q){{t++;var a=+q.dataset.a,c=q.querySelector('input:checked');q.classList.remove('right','wrong');q.querySelectorAll('.opt').forEach(function(l,i){{l.classList.toggle('is-answer',i===a);l.classList.toggle('is-wrong',!!c&&+c.value===i&&i!==a);}});if(c&&+c.value===a){{n++;q.classList.add('right');}}else if(c){{q.classList.add('wrong');}}q.querySelector('.why').hidden=!c;}});var s=f.querySelector('.score');s.textContent=n+' of '+t+' correct'+(n===t?' — well done.':n>=t/2?' — nearly there; read the explanations.':' — reread the module, then try again.');}};
+f.querySelector('[data-reset]').onclick=function(){{f.reset();f.querySelectorAll('.qq').forEach(function(q){{q.classList.remove('right','wrong');q.querySelector('.why').hidden=true;q.querySelectorAll('.opt').forEach(function(l){{l.classList.remove('is-answer','is-wrong');}});}});f.querySelector('.score').textContent='';}};}})();
+</script>"""
 
 def series_teaser():
     out=""
@@ -190,7 +224,9 @@ for i, m in enumerate(modules):
 <div class="box"><p>{esc(m['ex'])}</p></div>
 <h2>Checkpoint</h2>
 <div class="box gold"><p>{esc(m['cp'])}</p></div>
+{quiz_html(m['id'])}
 {rel_html}
+{feedback_box(f"Module {i+1}: {m['title']}")}
 <div class="pager">{prev}{nxt}</div>
 """
     write(f"course/{m['id']}/index.html", page(f"{i+1:02d} · {m['title']}", body, m["goal"], f"course/{m['id']}/index.html")); urls.append(f"course/{m['id']}/")
@@ -245,12 +281,33 @@ for a in articles:
 <p class="small muted">{modlink}{esc(a['date'])} · {a['words']} words {tags}</p>
 <article class="prose">{a['html']}</article>
 {series_nav(a)}
+{feedback_box(a['title'])}
 """
     write(f"articles/{a['slug']}/index.html", page(a["title"], body, a["summary"], f"articles/{a['slug']}/index.html", kind="article")); urls.append(f"articles/{a['slug']}/")
 
 # About
 about_md = (CONTENT / "about.md").read_text() if (CONTENT / "about.md").exists() else f"# About\n\n{site['name']} is written by {site['author']}."
 write("about/index.html", page("About", f"<article class='prose'>{md_to_html(about_md)}</article>", f"About {site['name']}", "about/index.html")); urls.append("about/")
+
+# Feedback page
+fb = f"""
+<h1>Feedback</h1>
+<p class="lede">This site improves when readers point out what is wrong, what is missing, or what explains something better. Three ways to do that.</p>
+<h2>Report an error or suggest a resource</h2>
+<p>Every module and article has links at the bottom that open a pre-filled form. You can also start from here:</p>
+<p><a class="btn" href="{issue_link('error','General')}" rel="noopener">Report an error</a> <a class="btn ghost" href="{issue_link('resource','General')}" rel="noopener">Suggest a resource</a> <a class="btn ghost" href="{issue_link('question','General')}" rel="noopener">Ask a question</a></p>
+<p class="small muted">These open on GitHub, where the site is hosted. You need a free GitHub account to post; it takes a minute to create and is worth having if you work anywhere near technology. Everything posted there is public, so don't include anything confidential.</p>
+<h2>Reach me directly</h2>
+<p>{('Message me on <a href="'+esc(site['linkedin'])+'" rel="noopener">LinkedIn</a>.') if site.get('linkedin') else 'A LinkedIn link will appear here shortly.'}</p>
+<h2>What is most useful</h2>
+<ul>
+<li>A better free resource than one listed in a module, with a line on why.</li>
+<li>A factual error, with a source.</li>
+<li>A real-world example (anonymised) that would make an article clearer.</li>
+<li>A question the site should answer and doesn't.</li>
+</ul>
+"""
+write("feedback/index.html", page("Feedback", fb, "Report an error, suggest a resource or ask a question.", "feedback/index.html")); urls.append("feedback/")
 
 # SEO files
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
